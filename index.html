@@ -25,25 +25,32 @@
             font-family: sans-serif;
             background-color: var(--tg-theme-bg-color, #fff);
             color: var(--tg-theme-text-color, #222);
-            font-size: 20px;
+            font-size: 14px;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
         }
 
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            /* Используем разделенное слияние для border-spacing */
+            border-spacing: 0 10px;
+            /* Увеличиваем расстояние между строками таблицы */
         }
 
         th,
         td {
-            padding: 10px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            /* Увеличиваем отступы внутри ячеек */
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
 
         th {
             text-align: center;
+            white-space: nowrap;
+            /* Предотвращаем перенос текста в заголовках */
         }
 
         td {
@@ -62,8 +69,8 @@
 
         button {
             display: inline-block;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             font-size: 25px;
             border: none;
             border-radius: 10px;
