@@ -91,7 +91,6 @@
     <section id="top_sect" class="second">
         <!-- Книга таблица будет добавлена сюда -->
     </section>
-
     <script type="application/javascript">
 
         const DemoApp = {
@@ -100,8 +99,8 @@
             MainButton: Telegram.WebApp.MainButton,
             BackButton: Telegram.WebApp.BackButton,
             SettingsButton: Telegram.WebApp.SettingsButton,
-            maxBooks: 4, // Максимум книг для выбора
-            selectedCount: 0, // Текущий счётчик выбранных книг
+            maxBooks: 4, // Максимум экземпляров книг для выбора
+            selectedCount: 0, // Текущий счётчик всех выбранных экземпляров книг
 
             init(options) {
                 document.body.style.visibility = '';
@@ -209,15 +208,16 @@
                                 const quantitySpan = document.getElementById(`quantity-${id}`);
                                 let count = parseInt(quantitySpan.getAttribute('data-count'));
 
-                                if (count === 0 && DemoApp.selectedCount >= DemoApp.maxBooks) {
+                                // Проверяем, не превышает ли выбранное количество максимальное допустимое
+                                if (DemoApp.selectedCount >= DemoApp.maxBooks) {
                                     Telegram.WebApp.showAlert(`Вы не можете выбрать более ${DemoApp.maxBooks} книг.`);
                                     return;
                                 }
 
                                 Telegram.WebApp.HapticFeedback.impactOccurred('light');
-                                if (count === 0) DemoApp.selectedCount++; // Увеличиваем счётчик выбранных книг
                                 quantitySpan.setAttribute('data-count', count + 1);
                                 quantitySpan.textContent = count + 1;
+                                DemoApp.selectedCount++; // Увеличиваем общий счётчик выбранных экземпляров
                             });
                         });
 
@@ -231,7 +231,7 @@
                                 if (count > 0) {
                                     quantitySpan.setAttribute('data-count', count - 1);
                                     quantitySpan.textContent = count - 1;
-                                    if (count === 1) DemoApp.selectedCount--; // Уменьшаем счётчик выбранных книг
+                                    DemoApp.selectedCount--; // Уменьшаем общий счётчик выбранных экземпляров
                                 }
                             });
                         });
