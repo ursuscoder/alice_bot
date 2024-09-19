@@ -100,17 +100,19 @@
             MainButton: Telegram.WebApp.MainButton,
             BackButton: Telegram.WebApp.BackButton,
             SettingsButton: Telegram.WebApp.SettingsButton,
+            maxBooks: 4, // Максимум книг для выбора
+            selectedCount: 0, // Текущий счётчик выбранных книг
 
             init(options) {
-                document.body.style.visibility = ''
+                document.body.style.visibility = '';
                 Telegram.WebApp.MainButton.showProgress();
-                Telegram.WebApp.ready()
+                Telegram.WebApp.ready();
                 Telegram.WebApp.disableVerticalSwipes();
                 Telegram.WebApp.expand();
                 Telegram.WebApp.MainButton.setParams({
                     text: 'Отправить',
                     is_visible: true
-                }).onClick(DemoApp.sendData)
+                }).onClick(DemoApp.sendData);
             },
 
             sendData() {
@@ -203,10 +205,17 @@
                         // Обработка кликов на кнопки + и -
                         document.querySelectorAll('.increase').forEach(button => {
                             button.addEventListener('click', (e) => {
-                                Telegram.WebApp.HapticFeedback.impactOccurred('light');
                                 const id = e.target.getAttribute('data-id');
                                 const quantitySpan = document.getElementById(`quantity-${id}`);
                                 let count = parseInt(quantitySpan.getAttribute('data-count'));
+
+                                if (count === 0 && DemoApp.selectedCount >= DemoApp.maxBooks) {
+                                    Telegram.WebApp.showAlert(`Вы не можете выбрать более ${DemoApp.maxBooks} книг.`);
+                                    return;
+                                }
+
+                                Telegram.WebApp.HapticFeedback.impactOccurred('light');
+                                if (count === 0) DemoApp.selectedCount++; // Увеличиваем счётчик выбранных книг
                                 quantitySpan.setAttribute('data-count', count + 1);
                                 quantitySpan.textContent = count + 1;
                             });
@@ -214,13 +223,15 @@
 
                         document.querySelectorAll('.decrease').forEach(button => {
                             button.addEventListener('click', (e) => {
-                                Telegram.WebApp.HapticFeedback.impactOccurred('light');
                                 const id = e.target.getAttribute('data-id');
                                 const quantitySpan = document.getElementById(`quantity-${id}`);
                                 let count = parseInt(quantitySpan.getAttribute('data-count'));
+
+                                Telegram.WebApp.HapticFeedback.impactOccurred('light');
                                 if (count > 0) {
                                     quantitySpan.setAttribute('data-count', count - 1);
                                     quantitySpan.textContent = count - 1;
+                                    if (count === 1) DemoApp.selectedCount--; // Уменьшаем счётчик выбранных книг
                                 }
                             });
                         });
