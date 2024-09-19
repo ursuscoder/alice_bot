@@ -107,6 +107,7 @@
                 }).onClick(DemoApp.sendDataToBot)
             },
             sendDataToBot() {
+                Telegram.WebApp.sendData({ mikle: 1 })
                 Telegram.WebApp.close()
             },
 
