@@ -226,12 +226,12 @@
                             });
                         });
 
+                        Telegram.WebApp.MainButton.hideProgress();
                     })
                     .catch(error => {
                         console.error('Ошибка при загрузке данных:', error);
                         Telegram.WebApp.MainButton.hideProgress();
                     });
-                Telegram.WebApp.MainButton.hideProgress();
             }
         }
 
