@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="MobileOptimized" content="176" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="robots" content="noindex,nofollow" />
+    <script src="https://telegram.org/js/telegram-web-app.js?2"></script>
+    <script>
+        function setThemeClass() {
+            document.documentElement.className = Telegram.WebApp.colorScheme;
+        }
+
+        Telegram.WebApp.onEvent('themeChanged', setThemeClass);
+        setThemeClass();
+
+    </script>
+    <title></title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: var(--tg-theme-bg-color, #fff);
+            color: var(--tg-theme-text-color, #222);
+            font-size: 14px;
+            margin: 0;
+            padding: 10px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            font-size: 14px;
+            margin: 15px 0;
+            padding: 12px 12px;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--tg-theme-button-color, #50a8eb);
+            color: var(--tg-theme-button-text-color, #fff);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="" style="visibility: hidden;">
+
+    <section id="top_sect" class="second">
+        <button id="main_btn" onclick="DemoApp.sendMessage('');">Send «Hello, World!»</button>
+        <button id="with_webview_btn" onclick="DemoApp.sendMessage('', true);">Send «Hello, World!» with inline webview
+            button</button>
+        <button id="data_btn" onclick="DemoApp.sendTime(true);">Send current time to bot (x10)</button>
+        <button onclick="DemoApp.expand();">Expand Webview</button>
+        <button onclick="DemoApp.toggleBackButton(this);">Show Back Button</button>
+        <button onclick="DemoApp.toggleSettingsButton(this);">Show Settings Button</button>
+        <button onclick="DemoApp.toggleMainButton(this);">Hide Main Button</button>
+        <button onclick="DemoApp.toggleSwipeBehavior(this);">Disable Vertical Swypes</button>
+    </section>
+
+    <section>
+        <p>Haptics:</p>
+        <ul>
+            <li>Impact: <a href="javascript:Telegram.WebApp.HapticFeedback.impactOccurred('heavy');">heavy</a>, &nbsp;
+                <a href="javascript:Telegram.WebApp.HapticFeedback.impactOccurred('light');">light</a>, &nbsp; <a
+                    href="javascript:Telegram.WebApp.HapticFeedback.impactOccurred('medium');">medium</a>, &nbsp; <a
+                    href="javascript:Telegram.WebApp.HapticFeedback.impactOccurred('rigid');">rigid</a>, &nbsp; <a
+                    href="javascript:Telegram.WebApp.HapticFeedback.impactOccurred('soft');">soft</a><br><br>
+            </li>
+            <li>Notification: <a
+                    href="javascript:Telegram.WebApp.HapticFeedback.notificationOccurred('error');">error</a>, &nbsp; <a
+                    href="javascript:Telegram.WebApp.HapticFeedback.notificationOccurred('success');">success</a>,
+                &nbsp; <a
+                    href="javascript:Telegram.WebApp.HapticFeedback.notificationOccurred('warning');">warning</a><br><br>
+            </li>
+            <li>Selection: <a href="javascript:Telegram.WebApp.HapticFeedback.selectionChanged();">changed</a><br><br>
+            </li>
+        </ul>
+
+    </section>
+
+    <script type="application/javascript">
+
+        /*
+         * This is a demo code for Telegram WebApp for Bots
+         * It contains basic examples of how to use the API
+         * Note: all requests to backend are disabled in this demo, you should use your own backend
+         */
+
+        const DemoApp = {
+            initData: Telegram.WebApp.initData || '',
+            initDataUnsafe: Telegram.WebApp.initDataUnsafe || {},
+            MainButton: Telegram.WebApp.MainButton,
+            BackButton: Telegram.WebApp.BackButton,
+            SettingsButton: Telegram.WebApp.SettingsButton,
+
+            init(options) {
+                document.body.style.visibility = ''
+                Telegram.WebApp.ready()
+                Telegram.WebApp.disableVerticalSwipes();
+                Telegram.WebApp.expand();
+                Telegram.WebApp.MainButton.setParams({
+                    text: 'Отправить',
+                    is_visible: true
+                }).onClick(DemoApp.sendDataToBot)
+            },
+            sendDataToBot() {
+                Telegram.WebApp.close()
+            },
+
+            sendMessage(msg_id, with_webview) {
+                if (!DemoApp.initDataUnsafe.query_id) {
+                    alert('WebViewQueryId not defined');
+                    return;
+                }
+
+                document.querySelectorAll('button').forEach((btn) => btn.disabled = true);
+
+                const btn = document.querySelector('#btn_status');
+                btn.textContent = 'Sending...';
+
+                DemoApp.apiRequest('sendMessage', {
+                    msg_id: msg_id || '',
+                    with_webview: !DemoApp.initDataUnsafe.receiver && with_webview ? 1 : 0
+                }, function (result) {
+                    document.querySelectorAll('button').forEach((btn) => btn.disabled = false);
+
+                    if (result.response) {
+                        if (result.response.ok) {
+                            btn.textContent = 'Message sent successfully!';
+                            btn.className = 'ok';
+                            btn.style.display = 'block';
+                        } else {
+                            btn.textContent = result.response.description;
+                            btn.className = 'err';
+                            btn.style.display = 'block';
+                            alert(result.response.description);
+                        }
+                    } else if (result.error) {
+                        btn.textContent = result.error;
+                        btn.className = 'err';
+                        btn.style.display = 'block';
+                        alert(result.error);
+                    } else {
+                        btn.textContent = 'Unknown error';
+                        btn.className = 'err';
+                        btn.style.display = 'block';
+                        alert('Unknown error');
+                    }
+                });
+            },
+            checkInitData() {
+                const webViewStatus = document.querySelector('#webview_data_status');
+                if (DemoApp.initDataUnsafe.query_id &&
+                    DemoApp.initData &&
+                    webViewStatus.classList.contains('status_need')
+                ) {
+                    webViewStatus.classList.remove('status_need');
+                    DemoApp.apiRequest('checkInitData', {}, function (result) {
+                        if (result.ok) {
+                            webViewStatus.textContent = 'Hash is correct (async)';
+                            webViewStatus.className = 'ok';
+                        } else {
+                            webViewStatus.textContent = result.error + ' (async)';
+                            webViewStatus.className = 'err';
+                        }
+                    });
+                }
+            },
+            sendText(spam) {
+                const textField = document.querySelector('#text_field');
+                const text = textField.value;
+                if (!text.length) {
+                    return textField.focus();
+                }
+                if (byteLength(text) > 4096) {
+                    return alert('Text is too long');
+                }
+
+                const repeat = spam ? 10 : 1;
+                for (let i = 0; i < repeat; i++) {
+                    Telegram.WebApp.sendData(text);
+                }
+            },
+
+            showAlert(message) {
+                Telegram.WebApp.showAlert(message);
+            },
+            showConfirm(message) {
+                Telegram.WebApp.showConfirm(message);
+            },
+            showPopup() {
+                Telegram.WebApp.showPopup({
+                    title: 'Popup title',
+                    message: 'Popup message',
+                    buttons: [
+                        { id: 'delete', type: 'destructive', text: 'Delete all' },
+                        { id: 'faq', type: 'default', text: 'Open FAQ' },
+                        { type: 'cancel' },
+                    ]
+                }, function (buttonId) {
+                    if (buttonId === 'delete') {
+                        DemoApp.showAlert("'Delete all' selected");
+                    } else if (buttonId === 'faq') {
+                        Telegram.WebApp.openLink('https://telegram.org/faq');
+                    }
+                });
+            },
+
+
+            apiRequest(method, data, onCallback) {
+                return onCallback && onCallback({ error: 'This function (' + method + ') should send requests to your backend. Please, change this code to your own.' });
+
+                const authData = DemoApp.initData || '';
+                fetch('/demo/api', {
+                    method: 'POST',
+                    body: JSON.stringify(Object.assign(data, {
+                        _auth: authData,
+                        method: method,
+                    })),
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (result) {
+                    onCallback && onCallback(result);
+                }).catch(function (error) {
+                    onCallback && onCallback({ error: 'Server error' });
+                });
+            }
+        }
+    </script>
+
+    <script type="application/javascript">
+        DemoApp.checkInitData();
+        DemoApp.init();
+        Telegram.WebApp.setHeaderColor('secondary_bg_color');
+    </script>
+
+</body>
+
+</html>
