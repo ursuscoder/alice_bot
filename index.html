@@ -104,6 +104,7 @@
 
             init(options) {
                 document.body.style.visibility = ''
+                Telegram.WebApp.MainButton.showProgress();
                 Telegram.WebApp.ready()
                 Telegram.WebApp.disableVerticalSwipes();
                 Telegram.WebApp.expand();
@@ -228,15 +229,15 @@
                     })
                     .catch(error => {
                         console.error('Ошибка при загрузке данных:', error);
+                        Telegram.WebApp.MainButton.hideProgress();
                     });
+                Telegram.WebApp.MainButton.hideProgress();
             }
         }
 
         DemoApp.init();
         Telegram.WebApp.setHeaderColor('secondary_bg_color');
-        Telegram.WebApp.MainButton.showProgress(leaveActive = true);
         DemoApp.loadData();
-        Telegram.WebApp.MainButton.hideProgress();
     </script>
 
 </body>
