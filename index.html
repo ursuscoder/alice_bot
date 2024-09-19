@@ -28,6 +28,7 @@
             font-size: 14px;
             margin: 0;
             padding: 10px;
+            overflow: hidden;
         }
 
         table {
@@ -233,7 +234,7 @@
 
         DemoApp.init();
         Telegram.WebApp.setHeaderColor('secondary_bg_color');
-        Telegram.WebApp.MainButton.showProgress();
+        Telegram.WebApp.MainButton.showProgress(leaveActive = true);
         DemoApp.loadData();
         Telegram.WebApp.MainButton.hideProgress();
     </script>
