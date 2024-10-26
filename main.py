@@ -90,6 +90,7 @@ async def init_telegram_client():
     try:
         client = TelegramClient(settings.TELEGRAM_API_ID, settings.TELEGRAM_API_HASH)
         await client.client.connect()
+        await client.client.start()
         return client
     except Exception as ex:
         raise RuntimeError(f"Ошибка при подключении к Telegram: {ex}")
