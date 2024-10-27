@@ -116,15 +116,14 @@ async def close_client(client, name):
 
 async def main():
     await send_message("Приложение запущено")
+    try:
+        telegram_client = await init_telegram_client()
+        vk_client = await init_vk_client()
+    except Exception as er:
+        await send_message(f"Ошибка при инициализации клиента:\n{er}")
+        raise er
 
     while True:
-        try:
-            telegram_client = await init_telegram_client()
-            vk_client = await init_vk_client()
-        except Exception as er:
-            await send_message(f"Ошибка при инициализации клиента:\n{er}")
-            continue  # Повторить попытку через 10 минут
-
         try:
             sh_settings: Settings = await settings_sh.get_settings()
             if sh_settings.key_words:
@@ -135,10 +134,6 @@ async def main():
         except Exception as ex:
             log.error(f"Ошибка обработки группы: {ex}")
             await send_message(f"Ошибка обработки группы: {ex}")
-
-        finally:
-            await close_client(telegram_client, "Telegram")
-            await close_client(vk_client, "VK")
 
         log.info("Перерыв 10 минут")
         await asyncio.sleep(10 * 60)
