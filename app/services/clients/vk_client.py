@@ -59,7 +59,7 @@ class VKClient(BaseClient):
                             break
                         text = ""
                         if post.get("text"):
-                            text += post["text"].lower()
+                            text += post["text"].lower().replace("ё", "е")
                         if copy_history := post.get("copy_history"):
                             for copy_post in copy_history:
                                 if copy_text := copy_post.get("text"):
