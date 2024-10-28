@@ -7,3 +7,4 @@ protobuf==3.20.2
 pydantic==2.9.2
 pydantic_settings==2.6.0
 Telethon==1.37.0
+nest_asyncio
