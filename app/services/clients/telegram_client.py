@@ -62,7 +62,7 @@ class TelegramClient(BaseClient):
                             Result(
                                 key_words=", ".join(sorted(words)),
                                 text=text,
-                                link=f"{group_link}/{message.id}",
+                                link=f"{group_link.strip()}/{message.id}",
                                 date=(message.date + timedelta(hours=3)).strftime(
                                     "%d.%m.%Y %H:%M:%S"
                                 ),
