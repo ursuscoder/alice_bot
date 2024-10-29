@@ -50,7 +50,7 @@ class TelegramClient(BaseClient):
             ):
                 if message.message:
                     text: str = message.message
-                    lower_text = text.lower()
+                    lower_text = text.lower().replace("ё", "е")
                     words = [
                         key_word
                         for key_word in lower_key_words

@@ -16,6 +16,7 @@ class GoogleSheetAsync:
         self.column_range: str = column_range
         self.scopes = ["https://www.googleapis.com/auth/spreadsheets"]
         self.creds = self._authenticate(user_info)
+        self.service = build("sheets", "v4", credentials=self.creds)
 
     def _authenticate(self, user_info):
         creds = Credentials.from_authorized_user_info(user_info, self.scopes)
@@ -34,10 +35,7 @@ class GoogleSheetAsync:
     async def get(self, range_name=None):
         range_name = range_name or self.column_range
         try:
-            service = await asyncio.to_thread(
-                build, "sheets", "v4", credentials=self.creds
-            )
-            sheet = service.spreadsheets()
+            sheet = self.service.spreadsheets()
 
             request = sheet.values().get(
                 spreadsheetId=self.spreadsheet_id,
@@ -53,12 +51,9 @@ class GoogleSheetAsync:
     async def set(self, values, range_name=None):
         range_name = range_name or self.column_range
         try:
-            service = await asyncio.to_thread(
-                build, "sheets", "v4", credentials=self.creds
-            )
             body = {"values": values}
             request = (
-                service.spreadsheets()
+                self.service.spreadsheets()
                 .values()
                 .update(
                     spreadsheetId=self.spreadsheet_id,
