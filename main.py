@@ -74,7 +74,7 @@ async def process_group(
                 text += f"Кл. слова: <code>{post.key_words}</code>" + "\n"
                 text += f"Дата: <code>{post.date.split()[0]}</code>" + "\n"
                 text += f"Кол-во фото: <code>{post.image_count}</code>" + "\n"
-                text += f"Кол-во видео: <code>{post.image_count}</code>" + "\n"
+                text += f"Кол-во видео: <code>{post.video_count}</code>" + "\n"
                 text += f"Категория: <code>{post.category}</code>" + "\n"
                 text += f"Баллы: <code>{post.score}</code>"
                 await send_message(text)
