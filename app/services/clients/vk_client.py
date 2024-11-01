@@ -93,6 +93,6 @@ class VKClient(BaseClient):
                         break
                     params["offset"] += params["count"]
 
-                return result
+            return result
         except ValueError as ex:
             return ex

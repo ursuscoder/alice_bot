@@ -20,19 +20,7 @@ async def process_group(
     vk_client: VKClient,
 ):
     try:
-        if group.type == GroupTypes.TELEGRAM.value:
-            await telegram_client.update_group_info(group)
-            await group_sh.update_models(group)
-
-            log.info(f"Группа {group.type} {group.url} {group.members_count}")
-
-            log.info(f"Получаем сообщения из {group.url}")
-            posts = await telegram_client.find_posts(
-                sh_settings.key_words,
-                group.url,
-                offset_date=sh_settings.last_date,
-            )
-        elif group.type == GroupTypes.VK.value:
+        if group.type == GroupTypes.VK.value:
             await vk_client.update_group_info(group)
             await group_sh.update_models(group)
 
@@ -44,6 +32,18 @@ async def process_group(
                 group.url,
                 offset_date=sh_settings.last_date,
             )
+        # elif group.type == GroupTypes.TELEGRAM.value:
+        #     await telegram_client.update_group_info(group)
+        #     await group_sh.update_models(group)
+
+        #     log.info(f"Группа {group.type} {group.url} {group.members_count}")
+
+        #     log.info(f"Получаем сообщения из {group.url}")
+        #     posts = await telegram_client.find_posts(
+        #         sh_settings.key_words,
+        #         group.url,
+        #         offset_date=sh_settings.last_date,
+        #     )
         else:
             posts = []
     except Exception as ex:
@@ -128,7 +128,7 @@ async def main():
             sh_settings: Settings = await settings_sh.get_settings()
             if sh_settings.key_words:
                 groups: list[Group] = await group_sh.get_models()
-                for group in groups:
+                for group in reversed(groups):
                     await process_group(group, sh_settings, telegram_client, vk_client)
 
         except Exception as ex:
