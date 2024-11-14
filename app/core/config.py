@@ -15,7 +15,6 @@ class Settings(BaseSettings):
     SETTINGS_SPREADSHEET_ID: str
     SETTINGS_SHEET_NAME: str
     SETTINGS_RANGE_COLUMN: str
-    GOOGLE_USER_INFO: dict
 
     TELEGRAM_BOT_API_TOKEN: str
     TELEGRAM_GROUP_ID: int

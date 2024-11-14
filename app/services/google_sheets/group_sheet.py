@@ -32,5 +32,4 @@ group_sh = ModelSheetAsync(
     s.GROUP_SPREADSHEET_ID,
     s.GROUP_SHEET_NAME,
     s.GROUP_RANGE_COLUMN,
-    s.GOOGLE_USER_INFO,
 )

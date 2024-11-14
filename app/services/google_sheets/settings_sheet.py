@@ -41,7 +41,11 @@ class SettingsSheetAsync(ModelSheetAsync):
         models = await self.get_models(row=2)
         if models:
             (model,) = models
-            key_words = model.key_words.lower().replace("ё", "е").split(",")
+            key_words = (
+                model.key_words.lower().replace("ё", "е").split(",")
+                if model.key_words != ""
+                else None
+            )
             last_date = (
                 datetime.strptime(model.last_date.split()[0], "%d.%m.%Y")
                 if model.last_date
@@ -56,5 +60,4 @@ settings_sh = SettingsSheetAsync(
     s.SETTINGS_SPREADSHEET_ID,
     s.SETTINGS_SHEET_NAME,
     s.SETTINGS_RANGE_COLUMN,
-    s.GOOGLE_USER_INFO,
 )

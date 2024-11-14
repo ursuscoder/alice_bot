@@ -32,5 +32,4 @@ result_sh = ModelSheetAsync(
     s.RESULT_SPREADSHEET_ID,
     s.RESULT_SHEET_NAME,
     s.RESULT_RANGE_COLUMN,
-    s.GOOGLE_USER_INFO,
 )

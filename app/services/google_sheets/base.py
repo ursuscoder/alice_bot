@@ -1,3 +1,4 @@
+import json
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -10,26 +11,39 @@ import logging as log
 
 
 class GoogleSheetAsync:
-    def __init__(self, spreadsheet_id, sheet_name, column_range, user_info):
+    def __init__(self, spreadsheet_id, sheet_name, column_range):
         self.spreadsheet_id = spreadsheet_id
         self.sheet_name = sheet_name
         self.column_range: str = column_range
         self.scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-        self.creds = self._authenticate(user_info)
+        self.creds = self._authenticate()
         self.service = build("sheets", "v4", credentials=self.creds)
 
-    def _authenticate(self, user_info):
-        creds = Credentials.from_authorized_user_info(user_info, self.scopes)
+    def _authenticate(self):
+        try:
+            # Попытка загрузить токен из файла
+            with open("token.json", "r") as token_file:
+                user_info = json.load(token_file)
+            creds = Credentials.from_authorized_user_info(user_info, self.scopes)
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            # Ошибка при чтении файла или парсинге JSON
+            creds = None
+            print(f"Ошибка при загрузке токена: {e}")
+
         if not creds or not creds.valid:
-            if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
-            else:
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    "credentials.json", self.scopes
-                )
-                creds = flow.run_local_server(port=0)
-            with open("token.json", "w") as token:
-                token.write(creds.to_json())
+            # Если токен отсутствует или невалиден, запускаем процесс авторизации
+            flow = InstalledAppFlow.from_client_secrets_file(
+                "credentials.json", self.scopes
+            )
+            creds = flow.run_local_server(port=0)
+
+            # Сохраняем новый токен
+            try:
+                with open("token.json", "w") as token_file:
+                    token_file.write(creds.to_json())
+            except IOError as e:
+                print(f"Ошибка при записи токена в файл: {e}")
+
         return creds
 
     async def get(self, range_name=None):
@@ -93,9 +107,11 @@ class Model(BaseModel):
                     f"Column mismatch: expected {len(attributes)} columns, "
                     f"but got {len(row)}. Expected attributes: {attributes}"
                 )
-
-            row_data = {attr: value for attr, value in zip(attributes, row)}
-            res.append(cls(**row_data))
+            try:
+                row_data = {attr: value for attr, value in zip(attributes, row)}
+                res.append(cls(**row_data))
+            except:
+                pass
 
         return res
 
@@ -107,12 +123,9 @@ class ModelSheetAsync:
         spreadsheet_id,
         sheet_name,
         column_range,
-        user_info,
         start_row=2,
     ):
-        self._sheet = GoogleSheetAsync(
-            spreadsheet_id, sheet_name, column_range, user_info
-        )
+        self._sheet = GoogleSheetAsync(spreadsheet_id, sheet_name, column_range)
         self._model = model
         self._start_row = start_row
         self._lock = asyncio.Lock()

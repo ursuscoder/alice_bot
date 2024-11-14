@@ -32,18 +32,18 @@ async def process_group(
                 group.url,
                 offset_date=sh_settings.last_date,
             )
-        # elif group.type == GroupTypes.TELEGRAM.value:
-        #     await telegram_client.update_group_info(group)
-        #     await group_sh.update_models(group)
+        elif group.type == GroupTypes.TELEGRAM.value:
+            await telegram_client.update_group_info(group)
+            await group_sh.update_models(group)
 
-        #     log.info(f"Группа {group.type} {group.url} {group.members_count}")
+            log.info(f"Группа {group.type} {group.url} {group.members_count}")
 
-        #     log.info(f"Получаем сообщения из {group.url}")
-        #     posts = await telegram_client.find_posts(
-        #         sh_settings.key_words,
-        #         group.url,
-        #         offset_date=sh_settings.last_date,
-        #     )
+            log.info(f"Получаем сообщения из {group.url}")
+            posts = await telegram_client.find_posts(
+                sh_settings.key_words,
+                group.url,
+                offset_date=sh_settings.last_date,
+            )
         else:
             posts = []
     except Exception as ex:
@@ -130,13 +130,15 @@ async def main():
                 groups: list[Group] = await group_sh.get_models()
                 for group in groups:
                     await process_group(group, sh_settings, telegram_client, vk_client)
+            else:
+                log.info("Ключевых слов нет.")
 
         except Exception as ex:
             log.error(f"Ошибка обработки группы: {ex}")
             await send_message(f"Ошибка обработки группы: {ex}")
 
         interval = 60 * 60 * 2
-        log.info("Перерыв interval минут")
+        log.info(f"Перерыв {interval} минут")
         await asyncio.sleep(interval)
 
 
