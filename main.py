@@ -128,15 +128,16 @@ async def main():
             sh_settings: Settings = await settings_sh.get_settings()
             if sh_settings.key_words:
                 groups: list[Group] = await group_sh.get_models()
-                for group in reversed(groups):
+                for group in groups:
                     await process_group(group, sh_settings, telegram_client, vk_client)
 
         except Exception as ex:
             log.error(f"Ошибка обработки группы: {ex}")
             await send_message(f"Ошибка обработки группы: {ex}")
 
-        log.info("Перерыв 10 минут")
-        await asyncio.sleep(10 * 60)
+        interval = 60 * 60 * 2
+        log.info("Перерыв interval минут")
+        await asyncio.sleep(interval)
 
 
 if __name__ == "__main__":
