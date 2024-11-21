@@ -24,7 +24,15 @@ class Settings(BaseSettings):
 
     @property
     def google_user_info(self):
-        return json.loads(self.GOOGLE_USER_INFO)
+        try:
+            with open("token.json", "r") as file:
+                return json.load(file)  # Загружаем JSON-данные из файла
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                "Файл 'token.json' не найден. Убедитесь, что файл существует."
+            )
+        except json.JSONDecodeError:
+            raise ValueError("Файл 'token.json' содержит некорректный JSON.")
 
 
 settings = Settings()
