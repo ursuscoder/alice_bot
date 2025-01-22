@@ -1,7 +1,7 @@
 from app.core.log import logger as log
 import json
 import re
-from g4f.client import Client
+from g4f.client import AsyncClient
 from typing import Any, Dict
 
 
@@ -32,8 +32,8 @@ from collections import Counter
 
 class AiClientAsync:
     async def _ask_gpt(self, prompt_text):
-        client = Client()
-        response = await client.chat.completions.async_create(
+        client = AsyncClient()
+        response = await client.chat.completions.create(
             model="gpt-4o",
             messages=[{"role": "user", "content": prompt_text}],
         )
