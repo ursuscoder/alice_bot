@@ -1,3 +1,4 @@
+import re
 from typing import Union
 from telethon import TelegramClient as TelethonCilent, functions
 from datetime import datetime, timedelta
@@ -26,6 +27,39 @@ class TelegramClient(BaseClient):
         except Exception as e:
             log.error(f"Ошибка получения чата: {e}")
             return None
+
+    async def get_post(self, url: str) -> Result:
+        pattern = r"https://t.me/(?P<username>[a-zA-Z0-9_]+)/(?P<message_id>\d+)"
+        match = re.match(pattern, url)
+        if not match:
+            raise Exception("Неверный формат ссылки")
+
+        username = match.group("username")
+        message_id = int(match.group("message_id"))
+
+        # Fetch the entity and message
+        try:
+            entity = await self.client.get_entity(username)  # Get the user/channel
+            message = await self.client.get_messages(
+                entity, ids=message_id
+            )  # Get the message
+            if not (text := message.message):
+                text = ""
+
+            result = Result(
+                key_words="#URL#",
+                text=text,
+                link=url,
+                date=(message.date + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M:%S"),
+                image_count=int(bool(message.photo)),
+                video_count=int(bool(message.video)),
+            )
+            return result
+
+        except ValueError as ex:
+            return ex
+        except Exception as ex:
+            print(f"Ошибка получения сообщения: {ex}")
 
     async def find_posts(
         self,
