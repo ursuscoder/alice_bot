@@ -237,27 +237,6 @@
       "registered_at": "",
       "name": "Грозовой перевал",
       "image": "./images/default.jpg"
-    },
-    {
-      "row": 36,
-      "id": 35,
-      "registered_at": "",
-      "name": "ТЕСТ",
-      "image": "./images/35.jpg"
-    },
-    {
-      "row": 37,
-      "id": 36,
-      "registered_at": "",
-      "name": "ТЕСТ",
-      "image": "./images/36.jpg"
-    },
-    {
-      "row": 38,
-      "id": 37,
-      "registered_at": "",
-      "name": "ТЕСТ",
-      "image": "./images/37.jpg"
     }
   ]
 }
