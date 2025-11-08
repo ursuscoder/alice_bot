@@ -1,255 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="MobileOptimized" content="176" />
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="robots" content="noindex,nofollow" />
-    <script src="https://telegram.org/js/telegram-web-app.js?2"></script>
-    <script>
-        function setThemeClass() {
-            document.documentElement.className = Telegram.WebApp.colorScheme;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://telegram.org/js/telegram-web-app.js?2"></script>
+  <title>Книги</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: var(--tg-theme-bg-color, #fff);
+      color: var(--tg-theme-text-color, #222);
+      font-size: 14px;
+      margin: 0;
+      padding: 10px;
+    }
 
-        Telegram.WebApp.onEvent('themeChanged', setThemeClass);
-        setThemeClass();
-    </script>
-    <title></title>
-    <style>
-        body {
-            font-family: sans-serif;
-            background-color: var(--tg-theme-bg-color, #fff);
-            color: var(--tg-theme-text-color, #222);
-            font-size: 14px;
-            margin: 0;
-            padding: 10px;
-        }
+    .book-card {
+      display: flex;
+      align-items: flex-start;
+      background-color: var(--tg-theme-secondary-bg-color, #f9f9f9);
+      border-radius: 12px;
+      padding: 10px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
 
-        table {
-            width: 100%;
-            border-collapse: separate;
-            /* Используем разделенное слияние для border-spacing */
-            border-spacing: 0 10px;
-            /* Увеличиваем расстояние между строками таблицы */
-        }
+    .book-card img {
+      width: 80px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 12px;
+      flex-shrink: 0;
+      background-color: #eee;
+    }
 
-        th,
-        td {
-            padding-top: 2px;
-            padding-bottom: 2px;
-            /* Увеличиваем отступы внутри ячеек */
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+    .book-info {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
 
-        th {
-            text-align: center;
-            white-space: nowrap;
-            /* Предотвращаем перенос текста в заголовках */
-        }
+    .book-title {
+      font-size: 15px;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
 
-        td {
-            text-align: center;
-        }
+    .counter {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+    }
 
-        .fixed-width {
-            width: 20px;
-            /* Фиксированная ширина для кнопок и количества */
-        }
+    .counter button {
+      width: 36px;
+      height: 36px;
+      font-size: 22px;
+      border: none;
+      border-radius: 10px;
+      background-color: var(--tg-theme-button-color, #50a8eb);
+      color: var(--tg-theme-button-text-color, #fff);
+      cursor: pointer;
+    }
 
-        .book-name {
-            text-align: left;
-            /* Выравнивание названий книг по правому краю */
-        }
+    .counter span {
+      font-size: 16px;
+      min-width: 20px;
+      text-align: center;
+    }
 
-        button {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            font-size: 25px;
-            border: none;
-            border-radius: 10px;
-            background-color: var(--tg-theme-button-color, #50a8eb);
-            color: var(--tg-theme-button-text-color, #fff);
-            cursor: pointer;
-            margin: 0;
-        }
+    /* 📱 Адаптив под маленькие экраны */
+    @media (max-width: 380px) {
+      .book-card {
+        padding: 8px;
+        margin-bottom: 10px;
+      }
 
-        .quantity {
-            text-align: center;
-        }
-    </style>
+      .book-card img {
+        width: 60px;
+        height: 85px;
+        margin-right: 8px;
+      }
+
+      .book-title {
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+
+      .counter button {
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+        border-radius: 8px;
+      }
+
+      .counter span {
+        font-size: 15px;
+      }
+    }
+  </style>
 </head>
 
-<body class="" style="visibility: hidden;">
+<body style="visibility:hidden;">
 
-    <section id="top_sect" class="second">
-        <!-- Книга таблица будет добавлена сюда -->
-    </section>
-    <script type="application/javascript">
+  <section id="books"></section>
 
-        const DemoApp = {
-            initData: Telegram.WebApp.initData || '',
-            initDataUnsafe: Telegram.WebApp.initDataUnsafe || {},
-            MainButton: Telegram.WebApp.MainButton,
-            BackButton: Telegram.WebApp.BackButton,
-            SettingsButton: Telegram.WebApp.SettingsButton,
-            maxBooks: 4, // Максимум экземпляров книг для выбора
-            selectedCount: 0, // Текущий счётчик всех выбранных экземпляров книг
+  <script>
+    const DemoApp = {
+      initData: Telegram.WebApp.initData || '',
+      initDataUnsafe: Telegram.WebApp.initDataUnsafe || {},
+      MainButton: Telegram.WebApp.MainButton,
+      maxBooks: 4,
+      selectedCount: 0,
 
-            init(options) {
-                document.body.style.visibility = '';
-                Telegram.WebApp.MainButton.showProgress();
-                Telegram.WebApp.ready();
-                Telegram.WebApp.disableVerticalSwipes();
-                Telegram.WebApp.expand();
-                Telegram.WebApp.MainButton.setParams({
-                    text: 'Отправить',
-                    is_visible: true
-                }).onClick(DemoApp.sendData);
-            },
+      init() {
+        document.body.style.visibility = '';
+        Telegram.WebApp.ready();
+        Telegram.WebApp.disableVerticalSwipes();
+        Telegram.WebApp.expand();
+        Telegram.WebApp.MainButton.setParams({
+          text: 'Отправить',
+          is_visible: true
+        }).onClick(DemoApp.sendData);
+      },
 
-            sendData() {
-                const quantities = document.querySelectorAll('.quantity span');
-                let hasSelection = false;
-                let message = '';
+      sendData() {
+        const quantities = document.querySelectorAll('.quantity');
+        let message = '';
+        let hasSelection = false;
 
-                quantities.forEach(span => {
-                    const count = parseInt(span.getAttribute('data-count'));
-                    if (count > 0) {
-                        const bookName = span.parentElement.parentElement.querySelector('.book-name').textContent;
-                        message += `${bookName} /${count}шт.\n`;
-                        hasSelection = true;
-                    }
-                });
+        quantities.forEach(span => {
+          const count = parseInt(span.getAttribute('data-count'));
+          if (count > 0) {
+            const bookName = span.closest('.book-info').querySelector('.book-title').textContent;
+            message += `${bookName} /${count}шт.\n`;
+            hasSelection = true;
+          }
+        });
 
-                if (!hasSelection) {
-                    Telegram.WebApp.showAlert('Ничего не выбрано');
-                    return;
-                }
-
-                Telegram.WebApp.sendData(message.trim());
-                Telegram.WebApp.close();
-            },
-
-            showAlert(message) {
-                Telegram.WebApp.showAlert(message);
-            },
-            showConfirm(message) {
-                Telegram.WebApp.showConfirm(message);
-            },
-            showPopup() {
-                Telegram.WebApp.showPopup({
-                    title: 'Popup title',
-                    message: 'Popup message',
-                    buttons: [
-                        { id: 'delete', type: 'destructive', text: 'Delete all' },
-                        { id: 'faq', type: 'default', text: 'Open FAQ' },
-                        { type: 'cancel' },
-                    ]
-                }, function (buttonId) {
-                    if (buttonId === 'delete') {
-                        DemoApp.showAlert("'Delete all' selected");
-                    } else if (buttonId === 'faq') {
-                        Telegram.WebApp.openLink('https://telegram.org/faq');
-                    }
-                });
-            },
-            loadData() {
-                // Запрашиваем данные из API
-                fetch('https://script.google.com/macros/s/AKfycbx_s1nmi49LwwwzJDPY_doB7KkSzyndcXXPv-WTUHshjk_susjG0vaIJGaVz8TElljinw/exec') // Замените на ваш реальный API
-                    .then(response => response.json())
-                    .then(data => {
-                        const books = data.books;
-                        const section = document.getElementById('top_sect');
-
-                        // Очищаем текущий контент
-                        section.innerHTML = '';
-
-                        // Создаём таблицу
-                        const table = document.createElement('table');
-                        const thead = document.createElement('thead');
-                        const tbody = document.createElement('tbody');
-
-                        // Создаём заголовки таблицы
-                        thead.innerHTML = `
-                            <tr>
-                                <th class="book-name">Книга</th>
-                                <th class="fixed-width"></th>
-                                <th class="fixed-width">Кол-во</th>
-                                <th class="fixed-width"></th>
-                            </tr>
-                        `;
-                        table.appendChild(thead);
-
-                        // Создаём строки таблицы на основе данных
-                        books.forEach(book => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                                <td class="book-name">${book.name}</td>
-                                <td class="fixed-width"><button class="increase" data-id="${book.id}">+</button></td>
-                                <td class="fixed-width quantity"><span id="quantity-${book.id}" data-count="0">0</span></td>
-                                <td class="fixed-width"><button class="decrease" data-id="${book.id}">-</button></td>
-                            `;
-                            tbody.appendChild(row);
-                        });
-                        table.appendChild(tbody);
-                        section.appendChild(table);
-
-                        // Обработка кликов на кнопки + и -
-                        document.querySelectorAll('.increase').forEach(button => {
-                            button.addEventListener('click', (e) => {
-                                const id = e.target.getAttribute('data-id');
-                                const quantitySpan = document.getElementById(`quantity-${id}`);
-                                let count = parseInt(quantitySpan.getAttribute('data-count'));
-
-                                // Проверяем, не превышает ли выбранное количество максимальное допустимое
-                                if (DemoApp.selectedCount >= DemoApp.maxBooks) {
-                                    Telegram.WebApp.showAlert(`Вы не можете выбрать более ${DemoApp.maxBooks} книг.`);
-                                    return;
-                                }
-
-                                Telegram.WebApp.HapticFeedback.impactOccurred('light');
-                                quantitySpan.setAttribute('data-count', count + 1);
-                                quantitySpan.textContent = count + 1;
-                                DemoApp.selectedCount++; // Увеличиваем общий счётчик выбранных экземпляров
-                            });
-                        });
-
-                        document.querySelectorAll('.decrease').forEach(button => {
-                            button.addEventListener('click', (e) => {
-                                const id = e.target.getAttribute('data-id');
-                                const quantitySpan = document.getElementById(`quantity-${id}`);
-                                let count = parseInt(quantitySpan.getAttribute('data-count'));
-
-                                Telegram.WebApp.HapticFeedback.impactOccurred('light');
-                                if (count > 0) {
-                                    quantitySpan.setAttribute('data-count', count - 1);
-                                    quantitySpan.textContent = count - 1;
-                                    DemoApp.selectedCount--; // Уменьшаем общий счётчик выбранных экземпляров
-                                }
-                            });
-                        });
-
-                        Telegram.WebApp.MainButton.hideProgress();
-                    })
-                    .catch(error => {
-                        console.error('Ошибка при загрузке данных:', error);
-                        Telegram.WebApp.MainButton.hideProgress();
-                    });
-            }
+        if (!hasSelection) {
+          Telegram.WebApp.showAlert('Ничего не выбрано');
+          return;
         }
 
-        DemoApp.init();
-        Telegram.WebApp.setHeaderColor('secondary_bg_color');
-        DemoApp.loadData();
-    </script>
+        Telegram.WebApp.sendData(message.trim());
+        Telegram.WebApp.close();
+      },
+
+loadData() {
+  fetch('https://script.google.com/macros/s/AKfycbx_s1nmi49LwwwzJDPY_doB7KkSzyndcXXPv-WTUHshjk_susjG0vaIJGaVz8TElljinw/exec')
+    .then(response => response.json())
+    .then(data => {
+      const books = data.books.map(book => ({
+        ...book,
+        image: book.image || 'https://cdn.eksmo.ru/v2/ITD000000001445058/COVER/' // ✅ подставляем, если нет
+      }));
+      DemoApp.renderBooks(books);
+    })
+    .catch(error => {
+      console.error('Ошибка при загрузке данных:', error);
+      Telegram.WebApp.MainButton.hideProgress();
+    });
+},
+
+
+      renderBooks(books) {
+        const container = document.getElementById('books');
+        container.innerHTML = '';
+
+        books.forEach(book => {
+          const card = document.createElement('div');
+          card.className = 'book-card';
+          card.innerHTML = `
+            <img src="${book.image}" alt="${book.name}">
+            <div class="book-info">
+              <div class="book-title">${book.name}</div>
+              <div class="counter">
+                <button class="decrease" data-id="${book.id}">−</button>
+                <span id="quantity-${book.id}" class="quantity" data-count="0">0</span>
+                <button class="increase" data-id="${book.id}">+</button>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+
+        // Обработка кнопок
+        document.querySelectorAll('.increase').forEach(btn => {
+          btn.addEventListener('click', e => {
+            const id = e.target.getAttribute('data-id');
+            const span = document.getElementById(`quantity-${id}`);
+            let count = parseInt(span.getAttribute('data-count'));
+
+            if (DemoApp.selectedCount >= DemoApp.maxBooks) {
+              Telegram.WebApp.showAlert(`Вы не можете выбрать более ${DemoApp.maxBooks} книг.`);
+              return;
+            }
+
+            Telegram.WebApp.HapticFeedback.impactOccurred('light');
+            span.setAttribute('data-count', count + 1);
+            span.textContent = count + 1;
+            DemoApp.selectedCount++;
+          });
+        });
+
+        document.querySelectorAll('.decrease').forEach(btn => {
+          btn.addEventListener('click', e => {
+            const id = e.target.getAttribute('data-id');
+            const span = document.getElementById(`quantity-${id}`);
+            let count = parseInt(span.getAttribute('data-count'));
+
+            Telegram.WebApp.HapticFeedback.impactOccurred('light');
+            if (count > 0) {
+              span.setAttribute('data-count', count - 1);
+              span.textContent = count - 1;
+              DemoApp.selectedCount--;
+            }
+          });
+        });
+      }
+    };
+
+    DemoApp.init();
+    Telegram.WebApp.setHeaderColor('secondary_bg_color');
+    DemoApp.loadData();
+  </script>
 
 </body>
-
 </html>
