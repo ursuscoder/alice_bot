@@ -196,20 +196,20 @@
         section.innerHTML = '';
 
         books.forEach(book => {
-          const card = document.createElement('div');
-          card.className = 'book-card';
-          card.innerHTML = `
+            const card = document.createElement('div');
+            card.className = 'book-card';
+            card.innerHTML = `
             <img src="${book.image}" alt="${book.name}">
             <div class="book-info">
-              <div class="book-title">${book.name}</div>
-              <div class="counter">
+                <div class="book-title">${book.name.replace(/\n/g, '<br>')}</div>
+                <div class="counter">
                 <button class="decrease" data-id="${book.id}">−</button>
                 <span id="quantity-${book.id}" class="quantity" data-count="0">0</span>
                 <button class="increase" data-id="${book.id}">+</button>
-              </div>
+                </div>
             </div>
-          `;
-          section.appendChild(card);
+            `;
+            section.appendChild(card);
         });
 
         document.querySelectorAll('.increase').forEach(btn => {
