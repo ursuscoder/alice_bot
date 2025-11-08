@@ -1,0 +1,242 @@
+{
+  "books": [
+    {
+      "row": 2,
+      "id": 1,
+      "registered_at": "",
+      "name": "Маленький красный Трактор и лесное приключение\nМаленький красный Трактор и паровозик\nМаленький красный Трактор и рецепт дружбы",
+      "image": "./images/1.jpg"
+    },
+    {
+      "row": 3,
+      "id": 2,
+      "registered_at": "",
+      "name": "Маленький красный Трактор и паровозик (ил. Ф. Госсенса), 0+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 4,
+      "id": 3,
+      "registered_at": "",
+      "name": "Маленький красный Трактор и рецепт дружбы (ил. Ф. Госсенса), 0+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 5,
+      "id": 4,
+      "registered_at": "",
+      "name": "Котенок Арли, или Пушистый пожарный (выпуск 48), 6+",
+      "image": "./images/4.jpg"
+    },
+    {
+      "row": 6,
+      "id": 5,
+      "registered_at": "",
+      "name": "Котенок Билли, или Хрупкие лапки (выпуск 53), 6+",
+      "image": "./images/5.jpg"
+    },
+    {
+      "row": 7,
+      "id": 6,
+      "registered_at": "",
+      "name": "Котенок Бусинка, или Друг с железной дороги (выпуск 49), 6+",
+      "image": "./images/6.jpg"
+    },
+    {
+      "row": 8,
+      "id": 7,
+      "registered_at": "",
+      "name": "Котенок Заплатка, или Обретенный дом (выпуск 47), 6+",
+      "image": "./images/7.jpg"
+    },
+    {
+      "row": 9,
+      "id": 8,
+      "registered_at": "",
+      "name": "Котенок Лучик, или Тоска по дому (выпуск 52), 6+",
+      "image": "./images/8.jpg"
+    },
+    {
+      "row": 10,
+      "id": 9,
+      "registered_at": "",
+      "name": "Щенок Лапочка, или Невероятное возвращение (выпуск 50), 6+",
+      "image": "./images/9.jpg"
+    },
+    {
+      "row": 11,
+      "id": 10,
+      "registered_at": "",
+      "name": "Щенок Мило, или Счастье на поводке (выпуск 51), 6+",
+      "image": "./images/10.jpg"
+    },
+    {
+      "row": 12,
+      "id": 11,
+      "registered_at": "",
+      "name": "Щенок Трэвис, или Маленький спасатель (выпуск 54), 6+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 13,
+      "id": 12,
+      "registered_at": "",
+      "name": "Призрак в школьной библиотеке (#1), 6+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 14,
+      "id": 13,
+      "registered_at": "",
+      "name": "Таинственный шепот (#2), 6+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 15,
+      "id": 14,
+      "registered_at": "",
+      "name": "Загадка секретной комнаты (#3), 6+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 16,
+      "id": 15,
+      "registered_at": "",
+      "name": "Тайна старого шкафа (#4), 6+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 17,
+      "id": 16,
+      "registered_at": "",
+      "name": "Динозавры. Самая веселая энциклопедия, 6+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 18,
+      "id": 17,
+      "registered_at": "",
+      "name": "Золото скифов (ил. А. Крысова), 6+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 19,
+      "id": 18,
+      "registered_at": "",
+      "name": "Приключения Пиноккио (с ил.), 6+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 20,
+      "id": 19,
+      "registered_at": "",
+      "name": "Игры и головоломки, 6+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 21,
+      "id": 20,
+      "registered_at": "",
+      "name": "Гид по рисованию комиксов, 6+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 22,
+      "id": 21,
+      "registered_at": "",
+      "name": "Новогодние приключения Карандаша и Самоделкина (ил. Ю. Якунина), 6+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 23,
+      "id": 22,
+      "registered_at": "",
+      "name": "Школа Фелидиксов (#1), 12+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 24,
+      "id": 23,
+      "registered_at": "",
+      "name": "Хранители звезды (#2), 12+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 25,
+      "id": 24,
+      "registered_at": "",
+      "name": "Колдуй отсюда. Официальная новеллизация, 12+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 26,
+      "id": 25,
+      "registered_at": "",
+      "name": "Репетиция поцелуя, 12+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 27,
+      "id": 26,
+      "registered_at": "",
+      "name": "Времена года с семьей панд. Раскраски-антистресс, которые подарят теплые чувства",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 28,
+      "id": 27,
+      "registered_at": "",
+      "name": "Творческая мастерская Сэсэми. Раскраска",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 29,
+      "id": 28,
+      "registered_at": "",
+      "name": "Ужасно богатые вампиры. Второй Обряд (#2)",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 30,
+      "id": 29,
+      "registered_at": "",
+      "name": "Заклятие истинной любви (#3)",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 31,
+      "id": 30,
+      "registered_at": "",
+      "name": "Кошмарный звонок, 18+",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 32,
+      "id": 31,
+      "registered_at": "",
+      "name": "Система для друзей. Том 1",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 33,
+      "id": 32,
+      "registered_at": "",
+      "name": "Навсегда моя. Давай сыграем в любовь (#1)",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 34,
+      "id": 33,
+      "registered_at": "",
+      "name": "Призрак Оперы",
+      "image": "./images/default.jpg"
+    },
+    {
+      "row": 35,
+      "id": 34,
+      "registered_at": "",
+      "name": "Грозовой перевал",
+      "image": "./images/default.jpg"
+    }
+  ]
+}
