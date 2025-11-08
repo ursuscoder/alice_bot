@@ -73,31 +73,31 @@
     }
 
     .counter {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 14px;
-      padding-right: 6px;
-      margin-top: 6px;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 17px; /* было 14px */
+  padding-right: 7px; /* было 6px */
+  margin-top: 7px; /* было 6px */
+}
 
-    .counter button {
-      width: 44px;
-      height: 44px;
-      font-size: 26px;
-      border: none;
-      border-radius: 12px;
-      background-color: var(--tg-theme-button-color, #50a8eb);
-      color: var(--tg-theme-button-text-color, #fff);
-      cursor: pointer;
-    }
+.counter button {
+  width: 53px; /* было 44px */
+  height: 53px; /* было 44px */
+  font-size: 31px; /* было 26px */
+  border: none;
+  border-radius: 14px; /* было 12px */
+  background-color: var(--tg-theme-button-color, #50a8eb);
+  color: var(--tg-theme-button-text-color, #fff);
+  cursor: pointer;
+}
 
-    .counter span {
-      font-size: 20px;
-      min-width: 28px;
-      text-align: center;
-      font-weight: bold;
-    }
+.counter span {
+  font-size: 24px; /* было 20px */
+  min-width: 34px; /* было 28px */
+  text-align: center;
+  font-weight: bold;
+}
 
     @media (max-width: 380px) {
       .book-card {
@@ -116,21 +116,21 @@
         margin-bottom: 6px;
       }
 
-      .counter {
-        gap: 10px;
-        padding-right: 4px;
-      }
+    .counter {
+        gap: 12px; /* было 10px */
+        padding-right: 5px; /* было 4px */
+    }
 
-      .counter button {
-        width: 38px;
-        height: 38px;
-        font-size: 22px;
-        border-radius: 10px;
-      }
+    .counter button {
+        width: 46px; /* было 38px */
+        height: 46px; /* было 38px */
+        font-size: 26px; /* было 22px */
+        border-radius: 12px; /* было 10px */
+    }
 
-      .counter span {
-        font-size: 18px;
-      }
+    .counter span {
+        font-size: 22px; /* было 18px */
+    }
     }
   </style>
 </head>
