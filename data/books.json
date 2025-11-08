@@ -33,7 +33,7 @@
       "id": 5,
       "registered_at": "",
       "name": "Котенок Билли, или Хрупкие лапки (выпуск 53), 6+",
-      "image": "./images/5.jpg"
+      "image": "./images/default.jpg"
     },
     {
       "row": 7,
@@ -244,6 +244,13 @@
       "registered_at": "",
       "name": "ТЕСТ",
       "image": "./images/35.jpg"
+    },
+    {
+      "row": 37,
+      "id": 36,
+      "registered_at": "",
+      "name": "ТЕСТ",
+      "image": "./images/36.jpg"
     }
   ]
 }
