@@ -186,10 +186,7 @@
         fetch('https://script.google.com/macros/s/AKfycbx_s1nmi49LwwwzJDPY_doB7KkSzyndcXXPv-WTUHshjk_susjG0vaIJGaVz8TElljinw/exec')
           .then(response => response.json())
           .then(data => {
-            const books = data.books.map(book => ({
-              ...book,
-              image: book.image || 'https://cdn.eksmo.ru/v2/ITD000000001445058/COVER/'
-            }));
+            const books = data.books
             DemoApp.renderBooks(books);
           })
           .catch(error => {
