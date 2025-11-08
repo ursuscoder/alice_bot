@@ -176,7 +176,7 @@
       },
 
       loadData() {
-        fetch('./books.json')
+        fetch('./data/books.json')
           .then(response => response.json())
           .then(data => {
             const books = data.books
