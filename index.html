@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://telegram.org/js/telegram-web-app.js?2"></script>
   <title>Книги</title>
-  <style>
+<style>
   body {
     font-family: sans-serif;
     background-color: var(--tg-theme-bg-color, #fff);
@@ -53,8 +53,9 @@
   .counter {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end; /* 👉 выравнивание вправо */
     gap: 14px;
+    padding-right: 6px; /* красивый отступ от правого края */
     margin-top: 6px;
   }
 
@@ -96,6 +97,7 @@
 
     .counter {
       gap: 10px;
+      padding-right: 4px;
     }
 
     .counter button {
@@ -110,6 +112,7 @@
     }
   }
 </style>
+
 
 </head>
 
