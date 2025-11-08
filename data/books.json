@@ -251,6 +251,13 @@
       "registered_at": "",
       "name": "ТЕСТ",
       "image": "./images/36.jpg"
+    },
+    {
+      "row": 38,
+      "id": 37,
+      "registered_at": "",
+      "name": "ТЕСТ",
+      "image": "./images/37.jpg"
     }
   ]
 }
