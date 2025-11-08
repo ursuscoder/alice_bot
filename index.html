@@ -31,13 +31,6 @@
       padding: 10px;
     }
 
-    html, body {
-    touch-action: manipulation;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
-    }
-
-
     .book-card {
       display: flex;
       align-items: center;
@@ -183,7 +176,7 @@
       },
 
       loadData() {
-        fetch('https://script.google.com/macros/s/AKfycbyxOaJ5tD9Ndgc-t1O4zHP-TxTelrZPBEQy8426gSboj8dB5n5Wnrt1Uq4fkCTT2SONrQ/exec')
+        fetch('./books.json')
           .then(response => response.json())
           .then(data => {
             const books = data.books
