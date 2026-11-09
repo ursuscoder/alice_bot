@@ -271,14 +271,14 @@
       "id": 39,
       "registered_at": "",
       "name": "Близнецы Крошмор. Вечные муки (#3), 16+",
-      "image": "./images/default.jpg"
+      "image": "./images/39.jpg"
     },
     {
       "row": 41,
       "id": 40,
       "registered_at": "",
       "name": "Гостиница на краю земли, 16+",
-      "image": "./images/default.jpg"
+      "image": "./images/40.jpg"
     },
     {
       "row": 42,
@@ -299,7 +299,7 @@
       "id": 43,
       "registered_at": "",
       "name": "Страж Дафэн. Дело о налоговом серебре (#1)",
-      "image": "./images/default.jpg"
+      "image": "./images/43.jpg"
     },
     {
       "row": 45,
@@ -320,7 +320,7 @@
       "id": 46,
       "registered_at": "",
       "name": "Принц льда и крови (#1) (новое оформление)",
-      "image": "./images/default.jpg"
+      "image": "./images/46.jpg"
     },
     {
       "row": 48,
@@ -355,7 +355,7 @@
       "id": 51,
       "registered_at": "",
       "name": "Местные боги",
-      "image": "./images/default.jpg"
+      "image": "./images/51.jpg"
     },
     {
       "row": 53,
@@ -389,43 +389,36 @@
       "row": 57,
       "id": 56,
       "registered_at": "",
-      "name": "Пока падают снежинки. Книжный адвент-календарь",
-      "image": "./images/56.jpg"
+      "name": "Медлячок",
+      "image": "./images/default.jpg"
     },
     {
       "row": 58,
       "id": 57,
       "registered_at": "",
-      "name": "Медлячок",
+      "name": "Идите лесом...инквизитор!",
       "image": "./images/57.jpg"
     },
     {
       "row": 59,
       "id": 58,
       "registered_at": "",
-      "name": "Идите лесом...инквизитор!",
+      "name": "Темная невеста",
       "image": "./images/58.jpg"
     },
     {
       "row": 60,
       "id": 59,
       "registered_at": "",
-      "name": "Темная невеста",
+      "name": "Партия Золушки",
       "image": "./images/59.jpg"
     },
     {
       "row": 61,
       "id": 60,
       "registered_at": "",
-      "name": "Партия Золушки",
-      "image": "./images/60.jpg"
-    },
-    {
-      "row": 62,
-      "id": 61,
-      "registered_at": "",
       "name": "Сердце рока",
-      "image": "./images/61.jpg"
+      "image": "./images/60.jpg"
     }
   ]
 }
