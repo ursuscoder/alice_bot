@@ -271,14 +271,14 @@
       "id": 39,
       "registered_at": "",
       "name": "Близнецы Крошмор. Вечные муки (#3), 16+",
-      "image": "./images/39.jpg"
+      "image": "./images/default.jpg"
     },
     {
       "row": 41,
       "id": 40,
       "registered_at": "",
       "name": "Гостиница на краю земли, 16+",
-      "image": "./images/40.jpg"
+      "image": "./images/default.jpg"
     },
     {
       "row": 42,
@@ -299,7 +299,7 @@
       "id": 43,
       "registered_at": "",
       "name": "Страж Дафэн. Дело о налоговом серебре (#1)",
-      "image": "./images/43.jpg"
+      "image": "./images/default.jpg"
     },
     {
       "row": 45,
@@ -320,7 +320,7 @@
       "id": 46,
       "registered_at": "",
       "name": "Принц льда и крови (#1) (новое оформление)",
-      "image": "./images/46.jpg"
+      "image": "./images/default.jpg"
     },
     {
       "row": 48,
@@ -355,7 +355,7 @@
       "id": 51,
       "registered_at": "",
       "name": "Местные боги",
-      "image": "./images/51.jpg"
+      "image": "./images/default.jpg"
     },
     {
       "row": 53,
@@ -397,7 +397,7 @@
       "id": 57,
       "registered_at": "",
       "name": "Медлячок",
-      "image": "./images/default.jpg"
+      "image": "./images/57.jpg"
     },
     {
       "row": 59,
